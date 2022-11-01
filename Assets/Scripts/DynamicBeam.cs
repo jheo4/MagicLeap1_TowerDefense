@@ -33,7 +33,7 @@ public class DynamicBeam : MonoBehaviour
         {
             beamLine.useWorldSpace = false;
             beamLine.SetPosition(0, transform.position);
-            beamLine.SetPosition(1, Vector3.forward * 5);
+            beamLine.SetPosition(1, Vector3.forward * 1);
         }
     }
 }
