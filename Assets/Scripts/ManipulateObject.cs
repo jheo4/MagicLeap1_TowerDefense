@@ -6,9 +6,9 @@ using UnityEngine.XR.MagicLeap;
 public class ManipulateObject : MonoBehaviour
 {
     private MLInput.Controller controller;
-    GameObject selectedGameObject;
+    GameObject selectedObject;
+    Tower selectedTower;
     public GameObject attachPoint;
-    public GameObject ControllerObject;
     bool trigger;
 
     // Start is called before the first frame update
@@ -25,13 +25,25 @@ public class ManipulateObject : MonoBehaviour
             if(trigger == true)
             {
                 RaycastHit hit;
-                if(Physics.Raycast(controller.Position, transform.forward, out hit))
+                if(Physics.Raycast(controller.Position, transform.forward, out hit, 1))
                 {
-                    if(hit.transform.gameObject.tag == "Interactable")
+                    if(hit.transform.gameObject.tag == "Tower")
                     {
-                        selectedGameObject = hit.transform.gameObject;
-                        selectedGameObject.GetComponent<Rigidbody>().useGravity = false;
-                        attachPoint.transform.position = hit.transform.position;
+                        selectedTower = hit.collider.GetComponent<Tower>();
+
+                        if(selectedTower.installed == false)
+                        {
+                            selectedObject = hit.transform.gameObject;
+                            selectedObject.GetComponent<Rigidbody>().useGravity = false;
+                            attachPoint.transform.position = hit.transform.position;
+
+                            selectedTower.grapped = true;
+                            selectedTower.atStorage = false;
+                        }
+                        else
+                        {
+                            selectedTower = null;
+                        }
                     }
                 }
                 trigger = false;
@@ -41,10 +53,13 @@ public class ManipulateObject : MonoBehaviour
         if(controller.TriggerValue < 0.2f)
         {
             trigger = true;
-            if(selectedGameObject != null)
+            if(selectedObject != null && selectedTower != null)
             {
-                selectedGameObject.GetComponent<Rigidbody>().useGravity = false;
-                selectedGameObject = null;
+               selectedObject.GetComponent<Rigidbody>().useGravity = true;
+               selectedObject = null;
+
+               selectedTower.grapped = false;
+               selectedTower = null;
             }
         }
     }
@@ -62,7 +77,7 @@ public class ManipulateObject : MonoBehaviour
             {
                 if(x > 0.5 || x < -0.5)
                 {
-                    selectedGameObject.transform.localScale += (selectedGameObject.transform.localScale * x * Time.deltaTime);
+                    selectedObject.transform.localScale += (selectedObject.transform.localScale * x * Time.deltaTime);
                 }
 
                 if(y > 0.3 || y < -0.3)
@@ -84,10 +99,10 @@ public class ManipulateObject : MonoBehaviour
         transform.position = controller.Position;
         transform.rotation = controller.Orientation;
 
-        if(selectedGameObject)
+        if(selectedObject)
         {
-            selectedGameObject.transform.position = attachPoint.transform.position;
-            selectedGameObject.transform.rotation = gameObject.transform.rotation;
+            selectedObject.transform.position = attachPoint.transform.position;
+            selectedObject.transform.rotation = gameObject.transform.rotation;
         }
 
         UpdateTriggerInfo();
