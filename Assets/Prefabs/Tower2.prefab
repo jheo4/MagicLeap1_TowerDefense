@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 4031304465782951356}
   - component: {fileID: 3918425081249688118}
   - component: {fileID: 3950986894590452408}
-  - component: {fileID: 4132877823482528623}
+  - component: {fileID: 283369357808013029}
   m_Layer: 0
   m_Name: Tower2
   m_TagString: Tower
@@ -160,13 +160,13 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3977946516140928024}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.007
   m_Height: 0.02
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4132877823482528623
+--- !u!114 &283369357808013029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,12 +175,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 3977946516140928024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3394fa7b2a4ed5499e5218b67f8e77f, type: 3}
+  m_Script: {fileID: 11500000, guid: 31669de92f58fd644a4948d4529ea179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   installed: 0
   grapped: 0
   atStorage: 1
+  attackSpeed: 0
+  attackRange: 0
+  damage: 0
+  timeAfterAttack: 0
+  target: {fileID: 0}
+  bulletPrefab: {fileID: 5471277884530405490, guid: 111911168782e01468534f8a72518a00,
+    type: 3}
 --- !u!1 &3978196305404910448
 GameObject:
   m_ObjectHideFlags: 0
