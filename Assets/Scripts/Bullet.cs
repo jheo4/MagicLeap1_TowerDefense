@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 16f;
+    public float speed = 0.09f;
     private Rigidbody bulletRigidbody;
 
     // Start is called before the first frame update
@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     {
         bulletRigidbody = GetComponent<Rigidbody>();
         bulletRigidbody.velocity = transform.forward * speed;
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 5f);
     }
 
     void OnTriggerEnter(Collider other)
@@ -24,6 +24,7 @@ public class Bullet : MonoBehaviour
             if(enemy != null)
             {
                 enemy.Die();
+                Destroy(gameObject, 0f);
             }
         }
     }
