@@ -8,6 +8,13 @@ public class Tower : MonoBehaviour
     public bool grapped;
     public bool atStorage = true;
 
+    public float attackSpeed;
+    public float attackRange;
+    public int damage;
+    public float timeAfterAttack;
+
+    public Enemy target = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,5 +27,19 @@ public class Tower : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void findEnemyToAttack()
+    {
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, attackRange);
+        foreach (Collider col in colliders)
+        {
+            if (col.tag == "Enemy")
+            {
+                target = col.GetComponent<Enemy>();
+                break;
+            }
+        }
+
     }
 }
