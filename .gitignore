@@ -71,4 +71,4 @@ crashlytics-build.properties
 # Lumin Zero Iteration Files
 Assets/Plugins/Lumin/Editor/
 Assets/Plugins/Lumin/Editor.meta
-
+.UserSettings/
