@@ -6,29 +6,71 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject endPoint;
     public GameObject enemyPrefab;
-    public float spwanRateMin = 0.5f;
-    public float spawnRateMax = 3f;
     private Transform endPointLocation;
     private float spawnRate;
     private float timeAfterSpawn;
+    private float timeBetweenWaves;
+    bool onWave;
+    bool needToSpawn;
+    GameManager gameManager;
+
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
+        gameManager = GameManager.instance;
+
         timeAfterSpawn = 0;
-        spawnRate = Random.Range(spwanRateMin, spawnRateMax);
+        timeBetweenWaves = 0;
+        onWave = false;
+        needToSpawn = false;
         endPointLocation = endPoint.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeAfterSpawn += Time.deltaTime;
-        if(timeAfterSpawn >= spawnRate)
+        if(onWave == false)
         {
-            timeAfterSpawn = 0f;
-            GameObject newEnemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
-            newEnemy.transform.LookAt(endPointLocation);
-            spawnRate = Random.Range(spwanRateMin, spawnRateMax);
+            timeBetweenWaves += Time.deltaTime;
+            if(timeBetweenWaves > gameManager.waveManager.timeBetweenWaves)
+            {
+                timeBetweenWaves = 0;
+                onWave = true;
+                needToSpawn = true;
+                gameManager.waveManager.nextWave();
+                spawnRate = gameManager.waveManager.getSpawnRate();
+            }
+        }
+        else // onWave
+        {
+            if(needToSpawn)
+            {
+                timeAfterSpawn += Time.deltaTime;
+                if(timeAfterSpawn >= spawnRate)
+                {
+                    timeAfterSpawn = 0f;
+                    spawnRate = gameManager.waveManager.getSpawnRate();
+                    bool spawned = gameManager.waveManager.spawnEnemy();
+                    if(spawned == true)
+                    {
+                        // enemy spawn...
+                        GameObject newEnemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
+                        newEnemy.transform.LookAt(endPointLocation);
+                    }
+                    else
+                    {
+                        needToSpawn = false;
+                    }
+                }
+            }
+            else
+            {
+                if(gameManager.waveManager.currentEnemies == 0)
+                {
+                    onWave = false;
+                }
+            }   
         }
     }
+
 }

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class EndPoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    GameManager gameManager;
+
+    void OnEnable()
     {
-        
+        gameManager = GameManager.instance;
     }
 
     void OnTriggerEnter(Collider other)
@@ -17,8 +18,8 @@ public class EndPoint : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             if(enemy != null)
             {
-                enemy.Die();
-                // Need to reduce Life
+                enemy.Die(false);
+                gameManager.player.reduceLife();
             }
         }
     }

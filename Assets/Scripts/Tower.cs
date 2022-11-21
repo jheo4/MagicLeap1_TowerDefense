@@ -14,6 +14,7 @@ public class Tower : MonoBehaviour
     public float timeAfterAttack;
 
     public Enemy target = null;
+    GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class Tower : MonoBehaviour
         installed = false;    
         grapped = false;    
         atStorage = true;
+        gameManager = GameManager.instance;
     }
 
     // Update is called once per frame

@@ -22,6 +22,7 @@ public class LaserTower : Tower
     {
         timeAfterAttack += Time.deltaTime;
 
+        findEnemyToAttack();
         if(target != null)
         {
             if(timeAfterAttack >= attackSpeed)
@@ -39,13 +40,12 @@ public class LaserTower : Tower
                 {
                     // Vector3.Distance(transform.position, target.transform.position);
                     StartCoroutine(LaserEffect(hit.point));
-                    target.Die();                    
+                    target.Die(true);
                 }
             }
         }
 
         target = null;
-        findEnemyToAttack();
     }
 
     private IEnumerator LaserEffect(Vector3 hitPosition)
