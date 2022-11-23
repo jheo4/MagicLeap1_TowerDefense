@@ -45,6 +45,15 @@ public class ManipulateObject : MonoBehaviour
                             selectedTower = null;
                         }
                     }
+                    if(hit.transform.gameObject.tag == "Button")
+                    {
+                        IButton button = hit.collider.GetComponent<IButton>();
+
+                        if(button != null)
+                        {
+                            button.Push();
+                        }
+                    }
                 }
                 trigger = false;
             }

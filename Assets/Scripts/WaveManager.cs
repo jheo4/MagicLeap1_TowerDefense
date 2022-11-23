@@ -20,7 +20,7 @@ public class WaveManager : MonoBehaviour
     void OnEnable()
     {
         currentWave = 0;
-        maxWave = 10;
+        maxWave = 3;
         spawnedEnemies = 0;
         currentEnemies = 0;
         maxWaveEnemies = 20;
@@ -42,7 +42,7 @@ public class WaveManager : MonoBehaviour
             currentEnemies = 0;
             maxWaveEnemies = 20 + (currentWave * 15);
             timeBetweenWaves = 5 + (float)(currentWave*0.2);
-            spawnRateMax = 3 - (float)(currentWave*0.15);
+            spawnRateMax = 3 - (float)(currentWave*0.2);
             enemyScore = 100 + (currentWave*currentWave*10);
 
             waveText.text = "Wave " + currentWave;

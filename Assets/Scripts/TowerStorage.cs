@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowerStorage : MonoBehaviour
 {
-    public float spawnRate = 10f;
+    public float spawnRate = 25f;
     public float timeAfterSpawn;
     public GameObject towerPrefab1;
     public GameObject towerPrefab2;
@@ -13,9 +13,9 @@ public class TowerStorage : MonoBehaviour
     public Tower currentTower;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        timeAfterSpawn = 10f;
+        timeAfterSpawn = 25f;
         towerIndexToSpawn = 0;
         currentTower = null;
     }
