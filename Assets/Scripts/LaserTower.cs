@@ -9,7 +9,7 @@ public class LaserTower : Tower
     // Start is called before the first frame update
     void Start()
     {
-        attackSpeed = 3.0f;
+        attackSpeed = 3.5f;
         attackRange = 0.7f;
 
         laserRenderer = GetComponent<LineRenderer>();
@@ -39,8 +39,8 @@ public class LaserTower : Tower
                 // if(Physics.Raycast(transform.position, transform.forward, out hit, attackRange))
                 {
                     // Vector3.Distance(transform.position, target.transform.position);
-                    StartCoroutine(LaserEffect(hit.point));
-                    target.Die(true);
+                    StartCoroutine(LaserEffect(target.transform.position));
+                    target.getDamage(20);
                 }
             }
         }
@@ -55,7 +55,7 @@ public class LaserTower : Tower
         laserRenderer.SetPosition(0, startingPoint);
         laserRenderer.SetPosition(1, hitPosition);
         laserRenderer.enabled = true;
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.08f);
         laserRenderer.enabled = false;
     }
 }
