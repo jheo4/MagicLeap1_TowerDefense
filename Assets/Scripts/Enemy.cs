@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
 {
     GameManager gameManager;
     public float speed = 0.3f;
+    public int hp;
+    public int score;
     public NavMeshAgent navMeshAgent;
 
     void OnEnable()
@@ -38,12 +40,18 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void getDamage(int damage)
+    {
+        hp = hp - damage;
+        if(hp <= 0) Die(true);
+    }
+
     public void Die(bool giveScore)
     {
         gameManager.waveManager.reduceCurrentEnemies();
         if(giveScore)
         {
-            gameManager.player.addScore(100);
+            gameManager.player.addScore(score);
         }
         gameObject.SetActive(false);
         Destroy(gameObject, 0);

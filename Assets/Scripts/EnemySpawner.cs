@@ -58,6 +58,9 @@ public class EnemySpawner : MonoBehaviour
                         Enemy enemyComponent = newEnemy.GetComponent<Enemy>();
                         if(enemyComponent != null)
                         {
+                            enemyComponent.speed = gameManager.waveManager.enemySpeed;
+                            enemyComponent.hp = gameManager.waveManager.enemyHP;
+                            enemyComponent.score = gameManager.waveManager.enemyScore;
                             enemyComponent.MoveTo(endPoint.transform.position);
                         }
                     }
