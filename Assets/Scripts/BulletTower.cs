@@ -10,7 +10,7 @@ public class BulletTower : Tower
     void Start()
     {
         attackSpeed = 0.4f;
-        attackRange = 0.3f;
+        attackRange = 0.5f;
     }
 
     // Update is called once per frame
