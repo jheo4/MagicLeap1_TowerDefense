@@ -1,24 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
     GameManager gameManager;
-    public Rigidbody enemyRigidbody;
-    public float speed = 0.05f;
-    // Start is called before the first frame update
-    void Start()
+    public float speed = 0.3f;
+    public NavMeshAgent navMeshAgent;
+
+    void OnEnable()
     {
-        enemyRigidbody = GetComponent<Rigidbody>();
-        enemyRigidbody.velocity = transform.forward * speed;
         gameManager = GameManager.instance;
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveTo(Vector3 destination)
     {
-        
+        StopCoroutine("OnMove");
+        navMeshAgent.speed = speed;
+        navMeshAgent.SetDestination(destination);
+        StartCoroutine("OnMove");
+    }
+
+    IEnumerator OnMove()
+    {
+        while(true)
+        {
+            if(Vector3.Distance(navMeshAgent.destination, transform.position) < 0.05f)
+            {
+                transform.position = navMeshAgent.destination;
+                navMeshAgent.ResetPath();
+                break;
+            }
+
+            yield return null;
+        }
     }
 
     public void Die(bool giveScore)

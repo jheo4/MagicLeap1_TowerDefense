@@ -55,7 +55,11 @@ public class EnemySpawner : MonoBehaviour
                     {
                         // enemy spawn...
                         GameObject newEnemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
-                        newEnemy.transform.LookAt(endPointLocation);
+                        Enemy enemyComponent = newEnemy.GetComponent<Enemy>();
+                        if(enemyComponent != null)
+                        {
+                            enemyComponent.MoveTo(endPoint.transform.position);
+                        }
                     }
                     else
                     {
