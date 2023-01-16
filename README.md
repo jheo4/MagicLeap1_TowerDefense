@@ -4,6 +4,8 @@ This was the class project of Fall '22 (CS 7470 Mobile & Ubiquitous Computing at
 The team members were [Jin Heo](https://jheo4.github.io/), Juo-Yang Chen, Seonghun Kang, and James Ramos.
 This work was advised by [Thad Starner](https://faculty.cc.gatech.edu/~thad/) and [Rajandeep Singh](https://www.rajandeepsingh.com/).
 
+__*You might use this project for some purposes. At that time, please refer this repository as a credit.*__
+
 ## Project Demo Video
 Click the below figure to watch the demo video.
 [![Demo Screenshot](./scene_flow.png)](https://youtu.be/hWpkK2sHkWQ)
